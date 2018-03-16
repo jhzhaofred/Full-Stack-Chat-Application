@@ -14,9 +14,9 @@ Backend of client application, which can talk to each other via server.
 
 A command set, which can be used by users to send requests to server directly. 
 
+GUI for client application.
 
 ## TO DO
-GUI for client application.
 
 Besides public and private chat rooms, the application should also support group chatting with selected users.
 
