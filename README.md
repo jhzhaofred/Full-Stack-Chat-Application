@@ -29,5 +29,5 @@ Full Stack Chat Application with Java.
 
 - GUI for client application.
 
-
+- Heartbeats checking. 
 #### @Copyright Jiahao Zhao, Jingjun Wang
