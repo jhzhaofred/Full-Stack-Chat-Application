@@ -14,7 +14,9 @@ Full Stack Chat Application with Java.
 
 - More friendly GUI with a list of online users, which is updated dynamically.
 
-- Bug fixed.
+- Switching the person you want to talk with by simply clicking on his/her name in the list of online users.
+
+- Minor bug fixes.
 
 ### Version 1
 - A server, which can listen to and deal with multi clients.
