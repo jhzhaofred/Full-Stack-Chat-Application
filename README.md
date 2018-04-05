@@ -28,4 +28,4 @@ Full Stack Chat Application with Java.
 - GUI for client application.
 
 
-@Copyright Jiahao Zhao, Jingjun Wang
+#### @Copyright Jiahao Zhao, Jingjun Wang
