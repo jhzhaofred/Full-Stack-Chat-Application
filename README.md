@@ -7,6 +7,11 @@ Full Stack Chat Application with Java.
 
 ## Changelog
 
+### Version 2.1
+- Added a singleton JSONBuilder, now can send anonymous JSON object using JSONBuilder. Finally I made my life easier.
+
+- Switched all the clumsy String processing to JSON processing.
+
 ### Version 2
 - Support of [JSON](http://json.org).
 
