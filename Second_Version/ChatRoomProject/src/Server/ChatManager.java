@@ -1,10 +1,9 @@
 package Server;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import org.json.simple.JSONObject;
 
-import javax.swing.DefaultListModel;
 
-import org.json.simple.JSONObject;;
 public class ChatManager {
 	private ChatManager () {}
 	private static final ChatManager cm = new ChatManager();
@@ -31,6 +30,7 @@ public class ChatManager {
 			}
 		}
 	}
+	@SuppressWarnings("unchecked")
 	public void remove_me(String name){		
 		JSONObject out = new JSONObject();
 		out.put("removeUser", name);
@@ -47,6 +47,7 @@ public class ChatManager {
 	public void talk(ChatSocket cs, String name, JSONObject out) {
 		message.get(name).out(out.toString());
 	}
+	@SuppressWarnings("unchecked")
 	public void userlist(ChatSocket cs) {
 		ArrayList<String> userlist = new ArrayList<String>();
 		userlist.add("Public");

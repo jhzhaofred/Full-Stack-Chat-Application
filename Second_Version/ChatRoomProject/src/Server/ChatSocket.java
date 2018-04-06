@@ -27,7 +27,7 @@ public class ChatSocket extends Thread {
 		} catch (IOException e) {
 			System.out.println(name + " left chat room.");
 			ChatManager.getChatManager().message.remove(name);
-			ChatManager.getChatManager().CheckAlive(name + " left chat room.");
+			ChatManager.getChatManager().CheckAlive(JSONBuilder.build("System", name + " left chat room.").toJSONString());
 			ChatManager.getChatManager().remove_me(name);
 		}
 	}

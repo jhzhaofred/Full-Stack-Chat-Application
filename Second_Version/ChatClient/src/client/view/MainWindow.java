@@ -33,12 +33,14 @@ public class MainWindow extends JFrame {
 	private JTextField ip;
 	private JTextField send;
 	private JScrollPane scrollPane;
+	private JScrollPane scrollPane_UserList;
 	private JTextField Port;
 	private JTextField Target;
-	private JList list;
+	private JList<String> list;
 	private JButton btnSend;
 	private JButton btnConnect;
 	private MouseAdapter ML;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -97,7 +99,7 @@ public class MainWindow extends JFrame {
 		Target.setEditable(false);
 		Target.setColumns(10);
 		
-		scrollPane_1 = new JScrollPane();
+		scrollPane_UserList = new JScrollPane();
 
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -125,7 +127,7 @@ public class MainWindow extends JFrame {
 							.addGap(2))
 						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+					.addComponent(scrollPane_UserList, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
@@ -146,20 +148,14 @@ public class MainWindow extends JFrame {
 						.addComponent(btnSend)))
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(6)
-					.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+					.addComponent(scrollPane_UserList, GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		
-		list = new JList();
-		scrollPane_1.setViewportView(list);
-		list.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if (!((String) obj.get("Name")).equals(list.getSelectedValue())) {
-					Target.setText(list.getSelectedValue().toString());
-				}
-			}
-		});
+		list = new JList<String>();
+		scrollPane_UserList.setViewportView(list);
+		
+		list.setEnabled(false);
 		txt.setText("Please click on connect buttom to start.....");
 		scrollPane.setViewportView(txt);
 		contentPane.setLayout(gl_contentPane);
@@ -175,6 +171,7 @@ public class MainWindow extends JFrame {
 		send.setEditable(true);
 		Target.setEditable(true);
 		btnSend.setEnabled(true);
+		list.setEnabled(true);
 		btnSend.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -183,10 +180,20 @@ public class MainWindow extends JFrame {
 		});
 		btnConnect.removeMouseListener(ML);
 		btnConnect.setEnabled(false);
+		
+		list.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (!((String) obj.get("Name")).equals(list.getSelectedValue())) {
+					Target.setText(list.getSelectedValue().toString());
+				}
+			}
+		});
 	}
-	DefaultListModel uls = new DefaultListModel();
-	private JScrollPane scrollPane_1;
-	public void puch_userlist (JSONObject obj) {
+	DefaultListModel<String> uls = new DefaultListModel<String>();
+	
+	@SuppressWarnings("unchecked")
+	public void push_userlist (JSONObject obj) {
 		ArrayList<String> userlist = (ArrayList<String>) obj.get("init");
 		for(String user: userlist) {
 			uls.addElement(user);
@@ -202,6 +209,8 @@ public class MainWindow extends JFrame {
 	public void resetUserName() {
 		obj.remove("Name");
 	}
+	
+	@SuppressWarnings("unchecked")
 	private void SendEvent (JSONObject obj) {
 		if (obj.containsKey("Name")) {
 			obj.put("Message", send.getText());
@@ -213,7 +222,9 @@ public class MainWindow extends JFrame {
 			}
 		} else {
 			String spaceRemove = send.getText();
-			if (!send.getText().equals("") && !spaceRemove.replace(" ", "").equals("") && !send.getText().equalsIgnoreCase("public")) {
+			if (!send.getText().equals("") && 
+					!spaceRemove.replace(" ", "").equals("") && 
+					!send.getText().equalsIgnoreCase("public")) {
 				obj.put("Name", send.getText());
 				ChatManager.getChatManager().send(obj);
 			} else {

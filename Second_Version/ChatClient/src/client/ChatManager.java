@@ -44,8 +44,17 @@ public class ChatManager {
 							try {
 								obj = (JSONObject) parser.parse(line);
 								String MSG; 
-								if (obj.containsKey("init")) {
-									window.puch_userlist(obj);
+								if (obj.containsKey("System")) {
+									window.appendText((String) obj.get("System"));
+									if (obj.get("cmd") != null) 
+									{
+										switch((String) obj.get("cmd")) {
+											case "ResetUserName" : window.resetUserName();
+																break;
+										}
+									}
+								} else if (obj.containsKey("init")) {
+									window.push_userlist(obj);
 								} else if (obj.containsKey("newUser")) {
 									window.new_user((String) obj.get("newUser"));
 								} else if (obj.containsKey("removeUser")) {
@@ -57,10 +66,7 @@ public class ChatManager {
 										window.appendText(obj.get("Name") + ": " + MSG);
 								}
 							} catch (ParseException e) {
-								if(line.equals("Username exists!")) {
-									window.resetUserName();
-								}
-								window.appendText(line);
+								window.appendText("System: " + line);
 							}
 						}
 					}
