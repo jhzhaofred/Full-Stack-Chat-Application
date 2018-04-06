@@ -8,7 +8,7 @@ Full Stack Chat Application with Java.
 ## Changelog
 
 ### Version 2
-- Support of [JSON](json.org).
+- Support of [JSON](http://json.org).
 
 - Removed the command set in previous version. Now client's requests will be send to server in JSON.
 
